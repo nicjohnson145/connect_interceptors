@@ -17,7 +17,7 @@ type ProtovalidateInterceptorConfig struct {
 }
 
 func NewProtovalidateInterceptor(config ProtovalidateInterceptorConfig) *ProtovalidateInterceptor {
-	toFilter := func(str string) skipFilter {
+	toFilter := func(str string) validateSkipFilter {
 		switch str {
 		case "":
 			return func(s string) bool { return false }
@@ -34,11 +34,11 @@ func NewProtovalidateInterceptor(config ProtovalidateInterceptorConfig) *Protova
 
 var _ connect.Interceptor = (*ProtovalidateInterceptor)(nil)
 
-type skipFilter func(str string) bool
+type validateSkipFilter func(str string) bool
 
 type ProtovalidateInterceptor struct {
 	unimplemented.UnimplementedInterceptor
-	skipFilter skipFilter
+	skipFilter validateSkipFilter
 }
 
 func (p *ProtovalidateInterceptor) WrapUnary(next connect.UnaryFunc) connect.UnaryFunc {

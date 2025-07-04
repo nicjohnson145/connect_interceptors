@@ -30,7 +30,7 @@ type PayloadLoggingInterceptorConfig struct {
 }
 
 func NewPayloadLoggingInterceptor(config PayloadLoggingInterceptorConfig) *PayloadLoggingInterceptor {
-	toFilter := func(str string) methodFilter {
+	toFilter := func(str string) methodLoggingFilter {
 		switch str {
 		case "":
 			return func(s string) bool { return false }
@@ -52,14 +52,14 @@ func NewPayloadLoggingInterceptor(config PayloadLoggingInterceptorConfig) *Paylo
 
 var _ connect.Interceptor = (*PayloadLoggingInterceptor)(nil)
 
-type methodFilter func(string) bool
+type methodLoggingFilter func(string) bool
 
 type PayloadLoggingInterceptor struct {
 	unimplemented.UnimplementedInterceptor
 	logger *logr.Logger
 
-	requestFilter  methodFilter
-	responseFilter methodFilter
+	requestFilter  methodLoggingFilter
+	responseFilter methodLoggingFilter
 	pretty         bool
 }
 
@@ -67,7 +67,7 @@ func (p *PayloadLoggingInterceptor) WrapUnary(next connect.UnaryFunc) connect.Un
 	return connect.UnaryFunc(func(ctx context.Context, req connect.AnyRequest) (connect.AnyResponse, error) {
 		log := p.getLogger(ctx)
 
-		maybeLog := func(filter methodFilter, method string, obj any, objType string) {
+		maybeLog := func(filter methodLoggingFilter, method string, obj any, objType string) {
 			if !filter(method) {
 				return
 			}
