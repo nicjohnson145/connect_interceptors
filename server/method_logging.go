@@ -52,7 +52,7 @@ func (m *MethodLoggingInterceptor) WrapUnary(next connect.UnaryFunc) connect.Una
 			log.Info("request completed")
 		}
 
-		return resp, nil
+		return resp, err
 	})
 }
 

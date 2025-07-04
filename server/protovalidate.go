@@ -40,6 +40,7 @@ type ProtovalidateInterceptor struct {
 	unimplemented.UnimplementedInterceptor
 	skipFilter skipFilter
 }
+
 func (p *ProtovalidateInterceptor) WrapUnary(next connect.UnaryFunc) connect.UnaryFunc {
 	return connect.UnaryFunc(func(ctx context.Context, req connect.AnyRequest) (connect.AnyResponse, error) {
 		if !p.skipFilter(req.Spec().Procedure) {
