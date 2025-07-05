@@ -25,8 +25,8 @@ type ProtoJSONCodecOpts struct {
 	ProtoJsonOpts protojson.MarshalOptions
 }
 
-func NewProtoJSONCodec(opts ProtoJSONCodecOpts) protoJSONCodec {
-	return protoJSONCodec{
+func NewProtoJSONCodec(opts ProtoJSONCodecOpts) *protoJSONCodec {
+	return &protoJSONCodec{
 		marshalOpts: opts.ProtoJsonOpts,
 	}
 }
