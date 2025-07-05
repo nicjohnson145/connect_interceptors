@@ -5,7 +5,7 @@ import (
 
 	"connectrpc.com/connect"
 	"github.com/go-logr/logr"
-	"github.com/nicjohnson145/connect_interceptors/unimplemented"
+	"github.com/nicjohnson145/connecthelp/interceptors/unimplemented"
 	"github.com/oklog/ulid/v2"
 )
 

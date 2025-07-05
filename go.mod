@@ -1,4 +1,4 @@
-module github.com/nicjohnson145/connect_interceptors
+module github.com/nicjohnson145/connecthelp
 
 go 1.24.3
 
