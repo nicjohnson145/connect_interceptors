@@ -93,10 +93,10 @@ func (p *PayloadLoggingInterceptor) WrapUnary(next connect.UnaryFunc) connect.Un
 			}
 		}
 
-		maybeLog(p.requestFilter, req.Spec().Procedure, req, "request object")
+		maybeLog(p.requestFilter, req.Spec().Procedure, req.Any(), "request object")
 		resp, err := next(ctx, req)
 		if resp != nil {
-			maybeLog(p.responseFilter, req.Spec().Procedure, resp, "response object")
+			maybeLog(p.responseFilter, req.Spec().Procedure, resp.Any(), "response object")
 		}
 
 		return resp, err
